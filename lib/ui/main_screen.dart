@@ -5,6 +5,9 @@ import 'package:quest_world/ui/quests_tab.dart';
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SafeArea(child: QuestsTab(questsBlock.activeQuests, questsBlock.dispose, "Active quests")));
+    return Scaffold(
+        body: SafeArea(
+            child: QuestsTab(questsBlock.fetchActiveQuests,
+                questsBlock.activeQuests, "Active quests")));
   }
 }

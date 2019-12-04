@@ -52,7 +52,10 @@ class _QuestTabState extends State<QuestsTab> {
   }
 
   Widget buildQuestListView() {
-    return ListView.builder(shrinkWrap: true, itemBuilder: buildQuestItemView);
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: quests.length,
+        itemBuilder: buildQuestItemView);
   }
 
   Widget buildQuestItemView(context, int id) {
