@@ -29,10 +29,12 @@ class _MainScreenState extends State<MainScreen> {
     return DefaultTabController(
       length: tabsLength,
       child: Scaffold(
+        drawer: buildDrawer(),
         body: SafeArea(child: tabContent[_currentIndex]),
         bottomNavigationBar: BottomNavigationBar(
           onTap: (index) => setState(() => _currentIndex = index),
           currentIndex: _currentIndex,
+          selectedItemColor: Colors.blue,
           items: [
             BottomNavigationBarItem(
               icon: Icon(Icons.flag),
@@ -48,6 +50,34 @@ class _MainScreenState extends State<MainScreen> {
             )
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildDrawer() {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          DrawerHeader(
+            child: Text("Quest world"),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+          ),
+          ListTile(
+            title: Text("My Profile"),
+            leading: Icon(Icons.person),
+          ),
+          ListTile(
+            title: Text("My Quests"),
+            leading: Icon(Icons.done_outline),
+          ),
+          ListTile(
+            title: Text("All Quests"),
+            leading: Icon(Icons.grid_on),
+          )
+        ],
       ),
     );
   }
