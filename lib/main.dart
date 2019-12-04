@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quest_world/ui/SignInScreen.dart';
+import 'package:quest_world/ui/sign_in_screen.dart';
 
 void main() {
   runApp(App());

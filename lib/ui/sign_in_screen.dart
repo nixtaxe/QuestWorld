@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quest_world/ui/main_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   @override
@@ -16,6 +17,8 @@ class SignInScreen extends StatelessWidget {
           ),
           MaterialButton(
             child: Text("Sign In"),
+            onPressed: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => MainScreen())),
           ),
           MaterialButton(
             child: Text("Create new account"),
