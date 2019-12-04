@@ -69,9 +69,9 @@ class _QuestTabState extends State<QuestsTab> {
     );
   }
 
-  @override
-  void dispose() {
-    questsBlock.dispose();
-    super.dispose();
-  }
+//  @override
+//  void dispose() {
+//    questsBlock.dispose();
+//    super.dispose();
+//  }
 }
