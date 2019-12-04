@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:quest_world/blocks/quests_block.dart';
 import 'package:quest_world/models/quest_model.dart';
 import 'package:quest_world/resources/fake_responses.dart';
+import 'package:quest_world/ui/quest_description_screen.dart';
 
 class QuestsTab extends StatefulWidget {
   final title;
   final loadQuests;
   final getQuestsStream;
 
-  QuestsTab(this.loadQuests, this.getQuestsStream, this.title);
+  QuestsTab({this.loadQuests, this.getQuestsStream, this.title});
 
   @override
   State<QuestsTab> createState() => _QuestTabState();
@@ -51,6 +52,13 @@ class _QuestTabState extends State<QuestsTab> {
     );
   }
 
+  openQuestView(quest) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => QuestDescriptionScreen(quest: quest)));
+  }
+
   Widget buildQuestListView() {
     return ListView.builder(
         shrinkWrap: true,
@@ -65,6 +73,7 @@ class _QuestTabState extends State<QuestsTab> {
         leading: Icon(Icons.all_out),
         title: Text(quest.name),
         subtitle: Text(quest.description),
+        onTap: () => openQuestView(quest),
       ),
     );
   }

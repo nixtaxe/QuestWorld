@@ -12,11 +12,9 @@ class QuestsBlock {
     _activeQuestsFetcher.sink.add(quests);
   }
 
-
   dispose() {
     _activeQuestsFetcher.close();
   }
-
 }
 
 final questsBlock = QuestsBlock();

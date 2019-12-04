@@ -18,9 +18,18 @@ class _MainScreenState extends State<MainScreen> {
 
     _currentIndex = 0;
     tabContent = [
-      QuestsTab(questsBlock.fetchActiveQuests, questsBlock.activeQuests, "Active Quests"),
-      QuestsTab(questsBlock.fetchActiveQuests, questsBlock.activeQuests, "Completed Quests"),
-      QuestsTab(questsBlock.fetchActiveQuests, questsBlock.activeQuests, "Abandoned Quests"),
+      QuestsTab(
+          loadQuests: questsBlock.fetchActiveQuests,
+          getQuestsStream: questsBlock.activeQuests,
+          title: "Active Quests"),
+      QuestsTab(
+          loadQuests: questsBlock.fetchActiveQuests,
+          getQuestsStream: questsBlock.activeQuests,
+          title: "Completed Quests"),
+      QuestsTab(
+          loadQuests: questsBlock.fetchActiveQuests,
+          getQuestsStream: questsBlock.activeQuests,
+          title: "Abandoned Quests"),
     ];
   }
 
@@ -37,17 +46,12 @@ class _MainScreenState extends State<MainScreen> {
           selectedItemColor: Colors.blue,
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.flag),
-              title: Text("Active")
-            ),
+                icon: Icon(Icons.flag), title: Text("Active")),
             BottomNavigationBarItem(
-                icon: Icon(Icons.done),
-              title: Text("Completed")
-            ),
+                icon: Icon(Icons.done), title: Text("Completed")),
             BottomNavigationBarItem(
                 icon: Icon(Icons.pause_circle_outline),
-              title: Text("Abandoned")
-            )
+                title: Text("Abandoned"))
           ],
         ),
       ),
