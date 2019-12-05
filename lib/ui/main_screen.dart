@@ -43,7 +43,7 @@ class _MainScreenState extends State<MainScreen> {
         bottomNavigationBar: BottomNavigationBar(
           onTap: (index) => setState(() => _currentIndex = index),
           currentIndex: _currentIndex,
-          selectedItemColor: Colors.blue,
+          selectedItemColor: Theme.of(context).primaryColor,
           items: [
             BottomNavigationBarItem(
                 icon: Icon(Icons.flag), title: Text("Active")),
@@ -64,21 +64,22 @@ class _MainScreenState extends State<MainScreen> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text("Quest world"),
+            child: Center(child: Text("Quest world", style: Theme.of(context).textTheme.headline,)),
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: Theme.of(context).primaryColor,
             ),
           ),
           ListTile(
-            title: Text("My Profile"),
+            title: Text("My Profile", style: Theme.of(context).textTheme.title,),
             leading: Icon(Icons.person),
           ),
           ListTile(
-            title: Text("My Quests"),
-            leading: Icon(Icons.done_outline),
-          ),
+              title: Text("My Quests", style: Theme.of(context).textTheme.title,),
+              leading: Icon(Icons.done_outline),
+              onTap: () => Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => MainScreen()))),
           ListTile(
-            title: Text("All Quests"),
+            title: Text("All Quests", style: Theme.of(context).textTheme.title,),
             leading: Icon(Icons.grid_on),
           )
         ],
