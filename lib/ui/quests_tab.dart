@@ -31,7 +31,10 @@ class _QuestTabState extends State<QuestsTab> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text(widget.title),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Text(widget.title, style: Theme.of(context).textTheme.title,),
+        ),
         StreamBuilder(
             stream: widget.getQuestsStream(),
             builder:

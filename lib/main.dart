@@ -18,7 +18,7 @@ class App extends StatelessWidget {
         fontFamily: 'Montserrat',
         textTheme: TextTheme(
           headline: TextStyle(fontSize: 46.0, color: Colors.white, fontWeight: FontWeight.w300),
-          title: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w300),
+          title: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w300),
           body1: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
         ),
       ),
