@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:quest_world/ui/sign_in_screen.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+    statusBarIconBrightness: Brightness.dark
+  ));
+
   runApp(App());
 }
 
@@ -20,6 +25,7 @@ class App extends StatelessWidget {
           headline: TextStyle(fontSize: 46.0, color: Colors.white, fontWeight: FontWeight.w300),
           title: TextStyle(fontSize: 24.0, fontWeight: FontWeight.w300),
           body1: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+          button: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w700, color: Colors.white.withOpacity(0.85))
         ),
       ),
       home: Scaffold(
