@@ -4,7 +4,7 @@ import 'package:quest_world/ui/sign_in_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-    statusBarIconBrightness: Brightness.dark
+    statusBarIconBrightness: Brightness.light
   ));
 
   runApp(App());

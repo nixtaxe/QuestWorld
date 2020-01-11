@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:quest_world/blocks/quests_block.dart';
+import 'package:quest_world/blocks/user_block.dart';
+import 'package:quest_world/models/user_model.dart';
 import 'package:quest_world/ui/main_screen.dart';
 
 class SignInScreen extends StatelessWidget {
+  UserRequest user = UserRequest();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,10 +65,7 @@ class SignInScreen extends StatelessWidget {
                         ),
                       ),
                       color: Theme.of(context).accentColor,
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MainScreen())),
+                      onPressed: () => loginUser(context),
                     ),
                   ),
                 ],
@@ -76,5 +78,15 @@ class SignInScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void loginUser(context) async {
+    final success = await userBloc.login(user.name, user.password);
+    if (success) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => MainScreen()));
+    }
   }
 }
