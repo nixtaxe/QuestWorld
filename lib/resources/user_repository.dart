@@ -31,6 +31,6 @@ class UserRepository {
   Future<bool> hasToken() async {
     final storage = new FlutterSecureStorage();
     String token = await storage.read(key: UserStrings.token);
-    return token == null;
+    return token != null;
   }
 }

@@ -15,7 +15,7 @@ class QuestsTab extends StatefulWidget {
   @override
   State<QuestsTab> createState() => _QuestTabState();
 }
-
+//TODO change quest item screen based on type of the tab
 class _QuestTabState extends State<QuestsTab> {
   List<QuestItem> quests;
 

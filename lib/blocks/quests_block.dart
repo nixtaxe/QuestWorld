@@ -7,6 +7,7 @@ class QuestsBlock {
 
   Observable<QuestsResponse> activeQuests() => _activeQuestsFetcher.stream;
 
+  //TODO fetch real quests based on type (active, abandoned, finished)
   fetchActiveQuests() async {
     QuestsResponse quests = await getActiveQuests();
     _activeQuestsFetcher.sink.add(quests);
@@ -16,5 +17,7 @@ class QuestsBlock {
     _activeQuestsFetcher.close();
   }
 }
-
+//TODO add fetching tasks
+//TODO add joining quest
+//TODO add starting task
 final questsBlock = QuestsBlock();

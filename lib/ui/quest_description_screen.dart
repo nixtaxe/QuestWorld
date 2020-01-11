@@ -7,6 +7,8 @@ class QuestDescriptionScreen extends StatelessWidget {
 
   QuestDescriptionScreen({this.quest});
 
+  //TODO change appearance (add current steps list)
+  //TODO add new quest screen
   @override
   Widget build(BuildContext context) {
     return ScaffoldWrapper(

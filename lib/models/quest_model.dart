@@ -48,3 +48,4 @@ class QuestsResponse {
     return data;
   }
 }
+//TODO change model to real server quest response model
