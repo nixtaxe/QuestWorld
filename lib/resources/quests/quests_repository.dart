@@ -57,4 +57,13 @@ class QuestsRepository {
       throw Exception(response.statusMessage);
     }
   }
+
+  Future<QuestsResponse> getAvailableQuests() async {
+    final response = await _client.get(UrlStrings.getAvailableQuestsUrl);
+    if (response.statusCode == IntConst.ok) {
+      return QuestsResponse.fromJson(response.data);
+    } else {
+      throw Exception(response.statusMessage);
+    }
+  }
 }

@@ -11,10 +11,12 @@ class QuestsBlock {
   final _activeQuestsFetcher = PublishSubject<QuestsResponse>();
   final _finishedQuestsFetcher = PublishSubject<QuestsResponse>();
   final _abandonedQuestsFetcher = PublishSubject<QuestsResponse>();
+  final _availableQuestsFetcher = PublishSubject<QuestsResponse>();
 
   Observable<QuestsResponse> activeQuests() => _activeQuestsFetcher.stream;
   Observable<QuestsResponse> finishedQuests() => _finishedQuestsFetcher.stream;
   Observable<QuestsResponse> abandonedQuests() => _abandonedQuestsFetcher.stream;
+  Observable<QuestsResponse> availableQuests() => _availableQuestsFetcher.stream;
 
   //TODO fetch real quests based on type (active, abandoned, finished)
   fetchActiveQuests() async {
@@ -31,6 +33,11 @@ class QuestsBlock {
   fetchAbandonedQuests() async {
     QuestsResponse quests = await _repository.getQuestsByStatus(QuestsStrings.abandoned);
     _abandonedQuestsFetcher.sink.add(quests);
+  }
+
+  fetchAvailableQuests() async {
+    QuestsResponse quests = await _repository.getAvailableQuests();
+    _availableQuestsFetcher.sink.add(quests);
   }
 
   dispose() {

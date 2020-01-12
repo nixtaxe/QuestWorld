@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quest_world/blocks/user_block.dart';
+import 'package:quest_world/ui/base_widgets/scaffold_wrapper.dart';
 import 'package:quest_world/ui/main_screen.dart';
 import 'package:quest_world/ui/sign_in_screen.dart';
 
@@ -57,7 +58,7 @@ class _AppState extends State<App> {
 
               if (snapshot.hasData) {
                 final hasToken = snapshot.data;
-                return hasToken ? MainScreen() : SignInScreen();
+                return hasToken ? ScaffoldWrapper(initialTabName: "Main",) : SignInScreen();
               }
 
               return Center(
