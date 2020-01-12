@@ -8,55 +8,59 @@ class MainScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
-  int _currentIndex;
+class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateMixin{
+  TabController controller;
   final int tabsLength = 3;
-  var tabContent;
 
   @override
   void initState() {
     super.initState();
+    controller = TabController(vsync: this, length: tabsLength);
+  }
 
-    _currentIndex = 0;
-    tabContent = [
-      () => QuestsTab(
-          loadQuests: questsBlock.fetchActiveQuests,
-          getQuestsStream: questsBlock.activeQuests,
-          title: "Active Quests"),
-      () => QuestsTab(
-          loadQuests: questsBlock.fetchActiveQuests,
-          getQuestsStream: questsBlock.activeQuests,
-          title: "Completed Quests"),
-      () => QuestsTab(
-          loadQuests: questsBlock.fetchActiveQuests,
-          getQuestsStream: questsBlock.activeQuests,
-          title: "Abandoned Quests"),
-    ];
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return ScaffoldWrapper(
-      child: DefaultTabController(
-        length: tabsLength,
-        child: Scaffold(
-          body: SafeArea(child: tabContent[_currentIndex]()),
-          bottomNavigationBar: BottomNavigationBar(
-            onTap: (index) => setState(() => _currentIndex = index),
-            currentIndex: _currentIndex,
-            selectedItemColor: Theme.of(context).primaryColor,
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.flag), title: Text("Active")),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.done), title: Text("Completed")),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.pause_circle_outline),
-                  title: Text("Abandoned"))
-            ],
-          ),
+      bottomNavigationBar: Material(
+        color: Theme.of(context).primaryColor,
+        child: TabBar(
+          indicatorColor: Colors.white,
+          labelColor: Colors.white,
+          unselectedLabelColor: Colors.white,
+          controller: controller,
+          tabs: <Tab>[
+            Tab(
+                text: "Active"),
+            Tab(
+                text: "Completed"),
+            Tab(
+                text: "Interrupted")
+          ],
         ),
       ),
+      child: TabBarView(
+        controller: controller,
+        children: <Widget>[
+          QuestsTab(
+              loadQuests: questsBlock.fetchActiveQuests,
+              getQuestsStream: questsBlock.activeQuests,
+              title: "Active Quests"),
+          QuestsTab(
+              loadQuests: questsBlock.fetchFinishedQuests,
+              getQuestsStream: questsBlock.finishedQuests,
+              title: "Completed Quests"),
+          QuestsTab(
+              loadQuests: questsBlock.fetchAbandonedQuests,
+              getQuestsStream: questsBlock.abandonedQuests,
+              title: "Abandoned Quests"),
+        ],
+      )
     );
   }
 

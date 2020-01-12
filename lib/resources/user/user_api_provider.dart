@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:quest_world/models/token_model.dart';
 import 'package:quest_world/models/user_model.dart';
 
-import 'url_strings.dart' as UrlStrings;
-import 'integer_constants.dart' as IntConst;
+import '../url_strings.dart' as UrlStrings;
+import '../integer_constants.dart' as IntConst;
 
 class UserApiProvider {
   Dio _client;
@@ -11,7 +11,7 @@ class UserApiProvider {
   UserApiProvider() {
     BaseOptions options = BaseOptions(
       baseUrl: UrlStrings.baseUrl,
-      connectTimeout: 5000,
+      connectTimeout: IntConst.connectTimeout,
       receiveTimeout: 3000,
     );
 

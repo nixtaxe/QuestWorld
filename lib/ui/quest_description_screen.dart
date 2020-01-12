@@ -15,8 +15,7 @@ class QuestDescriptionScreen extends StatelessWidget {
       child: Column(children: [
         Icon(Icons.all_out),
         Text(quest.name),
-        Text(quest.description),
-        Text("Duration: ${quest.duration ?? 1} ms")
+        Text(quest.descriptionText),
       ]),
     );
   }

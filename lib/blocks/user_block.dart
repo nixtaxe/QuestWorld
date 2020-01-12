@@ -1,7 +1,7 @@
 import 'package:quest_world/models/token_model.dart';
 import 'package:quest_world/models/user_model.dart';
 import 'package:quest_world/resources/fake_responses.dart';
-import 'package:quest_world/resources/user_repository.dart';
+import 'package:quest_world/resources/user/user_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class UserBloc {
@@ -21,6 +21,10 @@ class UserBloc {
     TokenResponse token =
         await _repository.login(username: user.name, password: user.password);
     return token.token != null;
+  }
+
+  Future<String> getToken() async {
+    return await _repository.getToken();
   }
 
   dispose() {

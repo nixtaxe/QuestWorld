@@ -5,7 +5,8 @@ import 'package:quest_world/ui/main_screen.dart';
 class ScaffoldWrapper extends StatefulWidget {
   final appBar;
   final child;
-  ScaffoldWrapper({this.appBar, this.child});
+  final bottomNavigationBar;
+  ScaffoldWrapper({this.appBar, this.child, this.bottomNavigationBar});
 
   @override
   State<StatefulWidget> createState() => _ScaffoldWrapperState();
@@ -19,6 +20,7 @@ class _ScaffoldWrapperState extends State<ScaffoldWrapper> {
     return Scaffold(
       appBar: widget.appBar ?? AppBarWrapper(),
       body: SafeArea(child: widget.child,),
+      bottomNavigationBar: widget.bottomNavigationBar,
       drawer: buildDrawer(context),
     );
   }

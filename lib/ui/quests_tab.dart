@@ -15,6 +15,7 @@ class QuestsTab extends StatefulWidget {
   @override
   State<QuestsTab> createState() => _QuestTabState();
 }
+
 //TODO change quest item screen based on type of the tab
 class _QuestTabState extends State<QuestsTab> {
   List<QuestItem> quests;
@@ -33,23 +34,32 @@ class _QuestTabState extends State<QuestsTab> {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Text(widget.title, style: Theme.of(context).textTheme.title,),
+          child: Text(
+            widget.title,
+            style: Theme.of(context).textTheme.title,
+          ),
         ),
         StreamBuilder(
             stream: widget.getQuestsStream(),
             builder:
                 (BuildContext context, AsyncSnapshot<QuestsResponse> snapshot) {
               if (snapshot.hasError) {
-                print(snapshot.error.toString());
-                return Container();
+                return Container(child: Center(child: Text(snapshot.error.toString()),),);
               }
 
               if (snapshot.hasData) {
-                quests = snapshot.data.quests;
+                quests = snapshot.data.questList;
+                if (quests.length == 0) {
+                  return Container(
+                    child: Center(
+                      child: Text("No quests found"),
+                    ),
+                  );
+                }
                 return buildQuestListView();
               }
 
-              return Container();
+              return Center(child: Container(child: CircularProgressIndicator()));
             })
       ],
     );
@@ -75,7 +85,7 @@ class _QuestTabState extends State<QuestsTab> {
       child: ListTile(
         leading: Icon(Icons.all_out),
         title: Text(quest.name),
-        subtitle: Text(quest.description),
+        subtitle: Text(quest.descriptionText),
         onTap: () => openQuestView(quest),
       ),
     );
