@@ -66,4 +66,3 @@ class QuestItem {
   }
 }
 
-//TODO change model to real server quest response model

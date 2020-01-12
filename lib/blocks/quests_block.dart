@@ -40,6 +40,10 @@ class QuestsBlock {
     _availableQuestsFetcher.sink.add(quests);
   }
 
+  Future<bool> joinQuest(int id, String date) async {
+    return await _repository.joinQuest(id, date);
+  }
+
   dispose() {
     _activeQuestsFetcher.close();
     _finishedQuestsFetcher.close();

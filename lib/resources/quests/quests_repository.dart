@@ -66,4 +66,16 @@ class QuestsRepository {
       throw Exception(response.statusMessage);
     }
   }
+
+  Future<bool> joinQuest(int id, String date) async {
+    final response = await _client.get(UrlStrings.joinQuestUrl, queryParameters: {
+      QuestsStrings.id: id,
+      QuestsStrings.date: date
+    });
+    if (response.statusCode == IntConst.ok) {
+      return true;
+    } else {
+      throw Exception(response.statusMessage);
+    }
+  }
 }
