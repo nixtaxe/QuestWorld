@@ -16,6 +16,15 @@ class UserRepository {
     return token;
   }
 
+  Future<TokenResponse> register({
+    String username,
+    String password,
+  }) async {
+    final token = await _userApiProvider.register(username, password);
+    persistToken(token.token);
+    return token;
+  }
+
   Future<void> deleteToken() async {
     final storage = new FlutterSecureStorage();
     await storage.delete(key: UserStrings.token);

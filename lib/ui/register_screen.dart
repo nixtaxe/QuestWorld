@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:quest_world/blocs/user_bloc.dart';
 import 'package:quest_world/models/user_model.dart';
-import 'package:quest_world/ui/base_widgets/scaffold_wrapper.dart';
-import 'package:quest_world/ui/main_screen.dart';
-import 'package:quest_world/ui/register_screen.dart';
 import 'package:toast/toast.dart';
 
-class SignInScreen extends StatefulWidget {
+import 'base_widgets/scaffold_wrapper.dart';
+import 'main_screen.dart';
+
+class RegisterScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _SignInScreenState();
+  State<StatefulWidget> createState() => _RegisterScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
-  static GlobalKey<FormState> formKey = new GlobalKey<FormState>();
-  final UserRequest user = UserRequest();
+class _RegisterScreenState extends State<RegisterScreen> {
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  UserRequest user = UserRequest();
 
   @override
   Widget build(BuildContext context) {
@@ -30,20 +30,6 @@ class _SignInScreenState extends State<SignInScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Text(
-                    "Welcome to",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline
-                        .copyWith(fontSize: 34.0),
-                  ),
-                  Text(
-                    "Quest World!",
-                    style: Theme.of(context).textTheme.headline,
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),
                   TextFormField(
                     decoration: InputDecoration(
                         labelText: "Username",
@@ -67,6 +53,22 @@ class _SignInScreenState extends State<SignInScreen> {
                       user.password = value;
                     },
                   ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                        labelText: "Repeat password",
+                        labelStyle: Theme.of(context)
+                            .textTheme
+                            .title
+                            .copyWith(color: Colors.black54, fontSize: 20.0)),
+                    obscureText: true,
+                    validator: (value) {
+                      formKey.currentState.save();
+                      if (value != user.password) {
+                        return "Passwords are not the same";
+                      }
+                      return null;
+                    },
+                  ),
                   SizedBox(
                     height: 8.0,
                   ),
@@ -79,20 +81,16 @@ class _SignInScreenState extends State<SignInScreen> {
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Text(
-                              "Sign In",
+                              "Register",
                               style: Theme.of(context).textTheme.button,
                             ),
                           ),
                           color: Theme.of(context).accentColor,
-                          onPressed: () => loginUser(context),
+                          onPressed: () => registerUser(context),
                         ),
                       ),
                     ],
                   ),
-                  MaterialButton(
-                    child: Text("Create new account"),
-                    onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegisterScreen())),
-                  )
                 ],
               ),
             ),
@@ -102,10 +100,13 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  void loginUser(context) async {
+  void registerUser(context) async {
+    if (!formKey.currentState.validate())
+      return;
+
     formKey.currentState.save();
     try {
-      final success = await userBloc.login(user.name, user.password);
+      final success = await userBloc.register(user.name, user.password);
       if (success) {
         Navigator.pushReplacement(
             context,
@@ -116,4 +117,5 @@ class _SignInScreenState extends State<SignInScreen> {
       Toast.show(e.toString(), context, duration: Toast.LENGTH_LONG);
     }
   }
+
 }

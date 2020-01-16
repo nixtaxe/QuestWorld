@@ -22,6 +22,11 @@ class UserBloc {
     return token.token != null;
   }
 
+  Future<bool> register(String username, String password) async {
+    TokenResponse token = await _repository.register(username: username, password: password);
+    return token.token != null;
+  }
+
   Future<String> getToken() async {
     return await _repository.getToken();
   }

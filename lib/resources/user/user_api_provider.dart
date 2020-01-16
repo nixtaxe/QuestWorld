@@ -29,4 +29,14 @@ class UserApiProvider {
       throw Exception(response.statusMessage);
     }
   }
+
+  Future<TokenResponse> register(String username, String password) async {
+    final params = UserRequest(name: username, password: password).toJson();
+    final response = await _client.get(UrlStrings.registerUrl, queryParameters: params);
+    if (response.statusCode == IntConst.ok) {
+      return TokenResponse.fromJson(response.data);
+    } else {
+      throw Exception(response.statusMessage);
+    }
+  }
 }
