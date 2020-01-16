@@ -17,14 +17,17 @@ class UserBloc {
   }
 
   Future<bool> login(String username, String password) async {
-    UserRequest user = await getUser();
     TokenResponse token =
-        await _repository.login(username: user.name, password: user.password);
+        await _repository.login(username: username, password: password);
     return token.token != null;
   }
 
   Future<String> getToken() async {
     return await _repository.getToken();
+  }
+
+  deleteToken() async {
+    await _repository.deleteToken();
   }
 
   dispose() {
