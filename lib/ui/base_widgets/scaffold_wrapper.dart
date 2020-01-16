@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quest_world/blocks/quests_block.dart';
-import 'package:quest_world/blocks/user_block.dart';
+import 'package:quest_world/blocs/quests_bloc.dart';
+import 'package:quest_world/blocs/user_bloc.dart';
 import 'package:quest_world/ui/base_widgets/appbar_wrapper.dart';
 import 'package:quest_world/ui/main_screen.dart';
 

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
-import 'package:quest_world/blocks/user_block.dart';
+import 'package:quest_world/blocs/user_bloc.dart';
+import 'package:quest_world/models/question_model.dart';
 import 'package:quest_world/models/task_model.dart';
 
 import '../url_strings.dart' as UrlStrings;
@@ -54,14 +55,36 @@ class TasksRepository {
       TasksStrings.active: active ?? TasksStrings.none,
       TasksStrings.started: started ?? TasksStrings.none
     };
-    try {
-      final response = await _client.get(UrlStrings.getCurrentTasks,
-          queryParameters: params);
-      return TasksResponse.fromJson(response.data);
-    }
-    catch (e) {
-      throw e;
-    }
+    final response =
+        await _client.get(UrlStrings.getCurrentTasks, queryParameters: params);
+    return TasksResponse.fromJson(response.data);
+  }
 
+  Future<QuestionResponse> getQuestionById(int id) async {
+    final params = {
+      TasksStrings.id: id,
+    };
+    final response =
+    await _client.get(UrlStrings.getQuestionById, queryParameters: params);
+    return QuestionResponse.fromJson(response.data);
+  }
+
+  startTask(int id, String date) async {
+    final params = {
+      TasksStrings.task: id,
+      TasksStrings.date: date
+    };
+    await _client.get(UrlStrings.startTask, queryParameters: params);
+  }
+
+  performTask(int id, parameters, String date) async {
+    final params = {
+      TasksStrings.task: id,
+      TasksStrings.params: parameters,
+      TasksStrings.date: date
+    };
+    final response =
+    await _client.get(UrlStrings.performTask, queryParameters: params);
+//    return PerformTaskResponse.fromJson(response.data);
   }
 }

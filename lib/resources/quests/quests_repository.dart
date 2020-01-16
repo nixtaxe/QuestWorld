@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:quest_world/models/quest_model.dart';
 
-import '../../blocks/user_block.dart';
+import '../../blocs/user_bloc.dart';
 
 import '../url_strings.dart' as UrlStrings;
 import '../integer_constants.dart' as IntConst;

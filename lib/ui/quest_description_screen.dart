@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quest_world/blocks/quests_block.dart';
+import 'package:quest_world/blocs/date_bloc.dart';
+import 'package:quest_world/blocs/quests_bloc.dart';
 import 'package:quest_world/models/quest_model.dart';
 import 'package:quest_world/ui/base_widgets/scaffold_wrapper.dart';
 import 'package:intl/intl.dart';
@@ -28,11 +29,9 @@ class QuestDescriptionScreen extends StatelessWidget {
   }
 
   joinQuest(context) async {
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat("yyyy-MM-ddThh:mm:ss").format(now);
     try {
       final result = await questsBlock.joinQuest(
-          quest.id, formattedDate);
+          quest.id, dateBloc.getCurrentDate());
       Toast.show("$result", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     } catch (e) {

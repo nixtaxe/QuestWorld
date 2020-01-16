@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:quest_world/blocks/quests_block.dart';
+import 'package:quest_world/blocs/quests_bloc.dart';
 import 'package:quest_world/models/quest_model.dart';
 import 'package:quest_world/resources/fake_responses.dart';
 import 'package:quest_world/ui/active_quest_screen.dart';
@@ -79,7 +79,7 @@ class _QuestTabState extends State<QuestsTab> {
                 ? QuestDescriptionScreen(quest: quest)
                 : ActiveQuestScreen(
                     quest: quest,
-                  )));
+                  ))).then((value) => widget.loadQuests());
   }
 
   Widget buildQuestListView() {

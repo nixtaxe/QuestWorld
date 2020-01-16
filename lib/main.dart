@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:quest_world/blocks/user_block.dart';
+import 'package:quest_world/blocs/user_bloc.dart';
 import 'package:quest_world/ui/base_widgets/scaffold_wrapper.dart';
 import 'package:quest_world/ui/main_screen.dart';
 import 'package:quest_world/ui/sign_in_screen.dart';

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:quest_world/blocks/quests_block.dart';
-import 'package:quest_world/blocks/tasks_block.dart';
+import 'package:quest_world/blocs/quests_bloc.dart';
+import 'package:quest_world/blocs/tasks_bloc.dart';
 import 'package:quest_world/models/quest_model.dart';
 import 'package:quest_world/models/task_model.dart';
 import 'package:quest_world/ui/base_widgets/scaffold_wrapper.dart';
+import 'package:quest_world/ui/task_description_screen.dart';
 import 'package:toast/toast.dart';
 
 class ActiveQuestScreen extends StatefulWidget {
@@ -12,7 +13,7 @@ class ActiveQuestScreen extends StatefulWidget {
   ActiveQuestScreen({this.quest});
 
   @override
-  State<StatefulWidget> createState() =>_ActiveQuestScreenState();
+  State<StatefulWidget> createState() => _ActiveQuestScreenState();
 }
 
 class _ActiveQuestScreenState extends State<ActiveQuestScreen> {
@@ -31,26 +32,30 @@ class _ActiveQuestScreenState extends State<ActiveQuestScreen> {
     return ScaffoldWrapper(
       child: SingleChildScrollView(
         child: Column(
-            children: <Widget>[
-              Text(quest.name),
-              Text(quest.descriptionText),
-              StreamBuilder(
-                stream: tasksBloc.currentTasks(),
-                builder: (BuildContext context, AsyncSnapshot<TasksResponse> snapshot) {
-                  if (snapshot.hasError) {
-                    Toast.show(snapshot.error.toString(), context, duration: Toast.LENGTH_LONG);
-                  }
+          children: <Widget>[
+            Text(quest.name),
+            Text(quest.descriptionText),
+            StreamBuilder(
+              stream: tasksBloc.currentTasks(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<TasksResponse> snapshot) {
+                if (snapshot.hasError) {
+                  Toast.show(snapshot.error.toString(), context,
+                      duration: Toast.LENGTH_LONG);
+                }
 
-                  if (snapshot.hasData) {
-                    tasks = snapshot.data.taskList;
-                    return buildTasksList();
-                  }
+                if (snapshot.hasData) {
+                  tasks = snapshot.data.taskList;
+                  return buildTasksList();
+                }
 
-                  return Container(child: Text("No tasks found"),);
-                },
-              ),
-            ],
-          ),
+                return Container(
+                  child: Text("No tasks found"),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -69,8 +74,16 @@ class _ActiveQuestScreenState extends State<ActiveQuestScreen> {
         leading: Icon(Icons.live_help),
         title: Text(task.name),
         subtitle: Text(task.descriptionText),
-        onTap: () => {},
+        onTap: () => openTaskDescription(task),
       ),
     );
+  }
+
+  openTaskDescription(task) async {
+    Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => TaskDescriptionScreen(task: task)))
+        .then((value) => setState(() {tasksBloc.getCurrentTasks(quest.id);}));
   }
 }
