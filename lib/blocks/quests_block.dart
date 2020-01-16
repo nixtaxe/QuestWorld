@@ -51,6 +51,5 @@ class QuestsBlock {
   }
 }
 //TODO add fetching tasks
-//TODO add joining quest
 //TODO add starting task
 final questsBlock = QuestsBlock();

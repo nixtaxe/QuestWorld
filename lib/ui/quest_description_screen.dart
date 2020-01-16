@@ -29,15 +29,15 @@ class QuestDescriptionScreen extends StatelessWidget {
 
   joinQuest(context) async {
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-dd-MMThh:mm:ss').format(now);
+    String formattedDate = DateFormat("yyyy-MM-ddThh:mm:ss").format(now);
     try {
       final result = await questsBlock.joinQuest(
           quest.id, formattedDate);
       Toast.show("$result", context,
-          duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     } catch (e) {
       Toast.show(e.toString(), context,
-          duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     }
   }
 }
