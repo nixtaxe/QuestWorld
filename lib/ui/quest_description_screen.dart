@@ -30,10 +30,11 @@ class QuestDescriptionScreen extends StatelessWidget {
 
   joinQuest(context) async {
     try {
-      final result = await questsBlock.joinQuest(
+      final success = await questsBlock.joinQuest(
           quest.id, dateBloc.getCurrentDate());
-      Toast.show("$result", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      if (success) {
+        Navigator.pop(context);
+      }
     } catch (e) {
       Toast.show(e.toString(), context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
