@@ -47,7 +47,6 @@ class _AppState extends State<App> {
                 color: Colors.white.withOpacity(0.85))),
       ),
       home: Scaffold(
-        //TODO add token verification
         body: StreamBuilder(
             stream: userBloc.hasToken(),
             builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -58,7 +57,7 @@ class _AppState extends State<App> {
 
               if (snapshot.hasData) {
                 final hasToken = snapshot.data;
-                return hasToken ? ScaffoldWrapper(initialTabName: "Main",) : SignInScreen();
+                return hasToken ? ScaffoldWrapper(child: MainScreen(),) : SignInScreen();
               }
 
               return Center(
