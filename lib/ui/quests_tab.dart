@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:quest_world/blocks/quests_block.dart';
 import 'package:quest_world/models/quest_model.dart';
 import 'package:quest_world/resources/fake_responses.dart';
+import 'package:quest_world/ui/active_quest_screen.dart';
 import 'package:quest_world/ui/quest_description_screen.dart';
 
 class QuestsTab extends StatefulWidget {
@@ -44,7 +45,11 @@ class _QuestTabState extends State<QuestsTab> {
             builder:
                 (BuildContext context, AsyncSnapshot<QuestsResponse> snapshot) {
               if (snapshot.hasError) {
-                return Container(child: Center(child: Text(snapshot.error.toString()),),);
+                return Container(
+                  child: Center(
+                    child: Text(snapshot.error.toString()),
+                  ),
+                );
               }
 
               if (snapshot.hasData) {
@@ -59,7 +64,8 @@ class _QuestTabState extends State<QuestsTab> {
                 return buildQuestListView();
               }
 
-              return Center(child: Container(child: CircularProgressIndicator()));
+              return Center(
+                  child: Container(child: CircularProgressIndicator()));
             })
       ],
     );
@@ -69,7 +75,11 @@ class _QuestTabState extends State<QuestsTab> {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => QuestDescriptionScreen(quest: quest)));
+            builder: (context) => quest.status == null
+                ? QuestDescriptionScreen(quest: quest)
+                : ActiveQuestScreen(
+                    quest: quest,
+                  )));
   }
 
   Widget buildQuestListView() {

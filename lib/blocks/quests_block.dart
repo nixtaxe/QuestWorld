@@ -48,6 +48,7 @@ class QuestsBlock {
     _activeQuestsFetcher.close();
     _finishedQuestsFetcher.close();
     _abandonedQuestsFetcher.close();
+    _availableQuestsFetcher.close();
   }
 }
 //TODO add fetching tasks

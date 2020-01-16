@@ -5,3 +5,4 @@ final String loginUrl = "/Login";
 final String getQuestsByUserUrl = "/GetQuestsByUser";
 final String getAvailableQuestsUrl = "/GetAvailableQuests";
 final String joinQuestUrl = "/JoinQuest";
+final String getCurrentTasks = "/GetCurrentTasks";
