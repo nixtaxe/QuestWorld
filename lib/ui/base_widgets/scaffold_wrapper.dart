@@ -54,13 +54,6 @@ class _ScaffoldWrapperState extends State<ScaffoldWrapper> {
           ),
           ListTile(
             title: Text(
-              "My Profile",
-              style: Theme.of(context).textTheme.title,
-            ),
-            leading: Icon(Icons.person),
-          ),
-          ListTile(
-            title: Text(
               "My Quests",
               style: Theme.of(context).textTheme.title,
             ),
