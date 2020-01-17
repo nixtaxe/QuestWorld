@@ -17,7 +17,7 @@ class ActiveQuestScreen extends StatefulWidget {
 }
 
 class _ActiveQuestScreenState extends State<ActiveQuestScreen> {
-  var tasks;
+  List<TaskItem> tasks;
 
   QuestItem get quest => widget.quest;
 
@@ -30,11 +30,22 @@ class _ActiveQuestScreenState extends State<ActiveQuestScreen> {
   @override
   Widget build(BuildContext context) {
     return ScaffoldWrapper(
-      child: SingleChildScrollView(
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            SizedBox(
+              height: 15.0,
+            ),
             Text(quest.name),
+            SizedBox(
+              height: 15.0,
+            ),
             Text(quest.descriptionText),
+            SizedBox(
+              height: 15.0,
+            ),
             StreamBuilder(
               stream: tasksBloc.currentTasks(),
               builder: (BuildContext context,
@@ -42,16 +53,27 @@ class _ActiveQuestScreenState extends State<ActiveQuestScreen> {
                 if (snapshot.hasError) {
                   Toast.show(snapshot.error.toString(), context,
                       duration: Toast.LENGTH_LONG);
+                  return Container(
+                    child: Text("Couldn't load quests :("),
+                  );
                 }
 
                 if (snapshot.hasData) {
                   tasks = snapshot.data.taskList;
+                  if (tasks.isEmpty) {
+                    return Container(
+                      child: Text("No tasks found"),
+                    );
+                  }
                   return buildTasksList();
                 }
 
-                return Container(
-                  child: Text("No tasks found"),
-                );
+                return Expanded(
+                    child: Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ));
               },
             ),
           ],
@@ -84,6 +106,6 @@ class _ActiveQuestScreenState extends State<ActiveQuestScreen> {
             context,
             MaterialPageRoute(
                 builder: (context) => TaskDescriptionScreen(task: task)))
-        .then((value) => setState(() {tasksBloc.getCurrentTasks(quest.id);}));
+        .then((value) => setState(() => tasksBloc.getCurrentTasks(quest.id)));
   }
 }

@@ -3,6 +3,7 @@ import 'package:quest_world/models/task_model.dart';
 import 'package:quest_world/ui/base_widgets/scaffold_wrapper.dart';
 import 'package:quest_world/ui/question_view.dart';
 
+import 'choice_view.dart';
 import 'const_values.dart' as ConstValues;
 
 class TaskDescriptionScreen extends StatefulWidget {
@@ -19,12 +20,13 @@ class _TaskDescriptionScreenState extends State<TaskDescriptionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget taskBody = (task.type == ConstValues.questionsType) ||
-            (task.type == ConstValues.choiceType)
+    Widget taskBody = (task.type == ConstValues.questionsType)
         ? QuestionView(task: task)
-        : Container(
-            child: Text("Unknown"),
-          );
+        : (task.type == ConstValues.choiceType)
+            ? ChoiceView(task: task)
+            : Container(
+                child: Text("Unknown"),
+              );
 
     return ScaffoldWrapper(
       child: Column(

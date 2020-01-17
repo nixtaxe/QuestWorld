@@ -24,6 +24,7 @@ class QuestionResponse {
 class Question {
   int id;
   String text;
+  int choice;
   List<AnswerItem> answerList;
 
   Question({this.id, this.text, this.answerList});
@@ -53,6 +54,7 @@ class Question {
 class AnswerItem {
   int id;
   String text;
+  bool isChecked = false;
 
   AnswerItem({this.id, this.text});
 

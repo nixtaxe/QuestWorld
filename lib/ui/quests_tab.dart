@@ -31,7 +31,6 @@ class _QuestTabState extends State<QuestsTab> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -64,8 +63,13 @@ class _QuestTabState extends State<QuestsTab> {
                 return buildQuestListView();
               }
 
-              return Center(
-                  child: Container(child: CircularProgressIndicator()));
+              return Expanded(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Center(
+                      child: CircularProgressIndicator()),
+                ),
+              );
             })
       ],
     );

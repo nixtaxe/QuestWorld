@@ -22,9 +22,9 @@ class TasksBlock {
     _questionFetcher.sink.add(result);
   }
 
-  sendAnswers(int id, params, String date) async {
+  Future<PerformTaskResponse> sendAnswers(int id, params, String date) async {
     await _repository.startTask(id, date);
-    await _repository.performTask(id, params, date);
+    return await _repository.performTask(id, params, date);
   }
 
   dispose() {

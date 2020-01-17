@@ -16,7 +16,6 @@ class QuestionView extends StatefulWidget {
 
 class _QuestionViewState extends State<QuestionView> {
   List<Question> questions;
-  List<int> answers = List<int>();
   TaskItem get task => widget.task;
 
   @override
@@ -57,12 +56,13 @@ class _QuestionViewState extends State<QuestionView> {
       children: <Widget>[
         Card(
           child: ListTile(
-            leading: Icon(Icons.all_out),
+            leading: Icon(Icons.help_outline),
             title: Text(question.text),
-            onTap: () => {},
+            onTap: () {},
           ),
         ),
-        buildAnswersList(question.answerList)
+        buildAnswersList(question.answerList),
+        buildSaveButton(question.answerList)
       ],
     );
   }
@@ -77,18 +77,35 @@ class _QuestionViewState extends State<QuestionView> {
             padding: const EdgeInsets.only(left: 15.0),
             child: Card(
               child: ListTile(
-                leading: Icon(Icons.all_out),
+                leading: Checkbox(value: answer.isChecked, onChanged: (bool value) {
+                  setState(() {
+                    answer.isChecked = value;
+                  });
+                }),
                 title: Text(answer.text),
-                onTap: () => markAnswer(answer.id),
               ),
             ),
           );
         });
   }
 
-  markAnswer(id) async {
-    answers.add(id);
-    await tasksBloc.sendAnswers(task.id, id, dateBloc.getCurrentDate());
-    Navigator.pop(context);
+  Widget buildSaveButton(List<AnswerItem> answers) {
+    return RaisedButton(child: Text("Save"), onPressed: () => saveAnswers(answers),);
+  }
+
+  saveAnswers(List<AnswerItem> answers) async {
+    List<int> result = List<int>();
+    for (AnswerItem x in answers) {
+      if (x.isChecked) {
+        result.add(x.id);
+      }
+    }
+    final response = await tasksBloc.sendAnswers(task.id, result, dateBloc.getCurrentDate());
+    if (response.success) {
+      Toast.show("Correct!", context);
+      Future.delayed(Duration(milliseconds: 300)).then((value) => Navigator.pop(context));
+    } else {
+      Toast.show("Wrong. x atempts remain", context, duration: Toast.LENGTH_LONG);
+    }
   }
 }

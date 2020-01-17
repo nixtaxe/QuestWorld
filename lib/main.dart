@@ -32,7 +32,7 @@ class _AppState extends State<App> {
       theme: ThemeData(
         primaryColor: Color(0xFF3FB7EB),
         primaryColorDark: Color(0xFF2DA4D8),
-        accentColor: Color(0xFF1537E7),
+        accentColor: Color(0xFF000072),
         fontFamily: 'Montserrat',
         textTheme: TextTheme(
             headline: TextStyle(

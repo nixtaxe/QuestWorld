@@ -78,13 +78,19 @@ class TasksRepository {
   }
 
   performTask(int id, parameters, String date) async {
+    var param = parameters;
+
+    if (parameters is List<int>) {
+      param = parameters.join(",");
+    }
+
     final params = {
       TasksStrings.task: id,
-      TasksStrings.params: parameters,
+      TasksStrings.params: param,
       TasksStrings.date: date
     };
     final response =
     await _client.get(UrlStrings.performTask, queryParameters: params);
-//    return PerformTaskResponse.fromJson(response.data);
+    return PerformTaskResponse.fromJson(response.data);
   }
 }
