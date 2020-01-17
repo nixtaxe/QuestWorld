@@ -23,7 +23,7 @@ class TasksBlock {
   }
 
   Future<PerformTaskResponse> sendAnswers(int id, params, String date) async {
-    await _repository.startTask(id, date);
+//    await _repository.startTask(id, date);
     return await _repository.performTask(id, params, date);
   }
 

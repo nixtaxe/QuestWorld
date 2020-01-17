@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quest_world/blocs/date_bloc.dart';
 import 'package:quest_world/blocs/quests_bloc.dart';
 import 'package:quest_world/models/quest_model.dart';
+import 'package:quest_world/ui/active_quest_screen.dart';
 import 'package:quest_world/ui/base_widgets/scaffold_wrapper.dart';
 import 'package:intl/intl.dart';
 import 'package:toast/toast.dart';
@@ -11,29 +12,43 @@ class QuestDescriptionScreen extends StatelessWidget {
 
   QuestDescriptionScreen({this.quest});
 
-  //TODO change appearance (add current steps list)
-  //TODO add new quest screen
   @override
   Widget build(BuildContext context) {
     return ScaffoldWrapper(
-      child: Column(children: [
-        Icon(Icons.all_out),
-        Text(quest.name),
-        Text(quest.descriptionText),
-        FlatButton(
-          child: Text("Join Quest"),
-          onPressed: () => joinQuest(context),
-        )
-      ]),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          SizedBox(
+            height: 15.0,
+          ),
+          Text(quest.name),
+          SizedBox(
+            height: 5.0,
+          ),
+          Text(quest.descriptionText),
+          SizedBox(
+            height: 5.0,
+          ),
+          RaisedButton(
+            child: Text("Join Quest"),
+            onPressed: () => joinQuest(context),
+          )
+        ]),
+      ),
     );
   }
 
   joinQuest(context) async {
     try {
-      final success = await questsBlock.joinQuest(
-          quest.id, dateBloc.getCurrentDate());
+      final success =
+          await questsBlock.joinQuest(quest.id, dateBloc.getCurrentDate());
       if (success) {
-        Navigator.pop(context);
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ActiveQuestScreen(
+                      quest: quest,
+                    )));
       }
     } catch (e) {
       Toast.show(e.toString(), context,

@@ -24,6 +24,7 @@ class QuestionResponse {
 class Question {
   int id;
   String text;
+  int attempts;
   int choice;
   List<AnswerItem> answerList;
 
@@ -32,6 +33,7 @@ class Question {
   Question.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     text = json['Text'];
+    attempts = json['Attempts'];
     if (json['AnswerList'] != null) {
       answerList = new List<AnswerItem>();
       json['AnswerList'].forEach((v) {
@@ -44,6 +46,7 @@ class Question {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['Text'] = this.text;
+    data['Attempts'] = this.attempts;
     if (this.answerList != null) {
       data['AnswerList'] = this.answerList.map((v) => v.toJson()).toList();
     }

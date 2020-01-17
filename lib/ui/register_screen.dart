@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:quest_world/blocs/quests_bloc.dart';
 import 'package:quest_world/blocs/user_bloc.dart';
 import 'package:quest_world/models/user_model.dart';
+import 'package:quest_world/ui/quests_tab.dart';
 import 'package:toast/toast.dart';
 
 import 'base_widgets/scaffold_wrapper.dart';
@@ -101,8 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void registerUser(context) async {
-    if (!formKey.currentState.validate())
-      return;
+    if (!formKey.currentState.validate()) return;
 
     formKey.currentState.save();
     try {
@@ -111,11 +112,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => ScaffoldWrapper(child: MainScreen(),)));
+                builder: (context) => ScaffoldWrapper(
+                      child: QuestsTab(
+                        loadQuests: questsBlock.fetchAvailableQuests,
+                        getQuestsStream: questsBlock.availableQuests,
+                        title: "Available Quests",
+                      ),
+                    )));
       }
     } catch (e) {
       Toast.show(e.toString(), context, duration: Toast.LENGTH_LONG);
     }
   }
-
 }

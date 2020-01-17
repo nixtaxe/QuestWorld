@@ -18,9 +18,10 @@ class QuestsBlock {
   Observable<QuestsResponse> abandonedQuests() => _abandonedQuestsFetcher.stream;
   Observable<QuestsResponse> availableQuests() => _availableQuestsFetcher.stream;
 
-  fetchActiveQuests() async {
+  Future<QuestsResponse> fetchActiveQuests() async {
     QuestsResponse quests = await _repository.getQuestsByStatus(QuestsStrings.active);
     _activeQuestsFetcher.sink.add(quests);
+    return quests;
   }
 
   fetchFinishedQuests() async {

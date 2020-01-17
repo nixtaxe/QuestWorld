@@ -16,6 +16,7 @@ class QuestionView extends StatefulWidget {
 
 class _QuestionViewState extends State<QuestionView> {
   List<Question> questions;
+
   TaskItem get task => widget.task;
 
   @override
@@ -28,9 +29,11 @@ class _QuestionViewState extends State<QuestionView> {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: tasksBloc.question(),
-      builder: (BuildContext context, AsyncSnapshot<QuestionResponse> snapshot) {
+      builder:
+          (BuildContext context, AsyncSnapshot<QuestionResponse> snapshot) {
         if (snapshot.hasError) {
-          Toast.show(snapshot.error.toString(), context, duration: Toast.LENGTH_LONG);
+          Toast.show(snapshot.error.toString(), context,
+              duration: Toast.LENGTH_LONG);
         }
 
         if (snapshot.hasData) {
@@ -62,7 +65,7 @@ class _QuestionViewState extends State<QuestionView> {
           ),
         ),
         buildAnswersList(question.answerList),
-        buildSaveButton(question.answerList)
+        buildSaveButton(question.attempts, question.answerList)
       ],
     );
   }
@@ -77,11 +80,13 @@ class _QuestionViewState extends State<QuestionView> {
             padding: const EdgeInsets.only(left: 15.0),
             child: Card(
               child: ListTile(
-                leading: Checkbox(value: answer.isChecked, onChanged: (bool value) {
-                  setState(() {
-                    answer.isChecked = value;
-                  });
-                }),
+                leading: Checkbox(
+                    value: answer.isChecked,
+                    onChanged: (bool value) {
+                      setState(() {
+                        answer.isChecked = value;
+                      });
+                    }),
                 title: Text(answer.text),
               ),
             ),
@@ -89,23 +94,40 @@ class _QuestionViewState extends State<QuestionView> {
         });
   }
 
-  Widget buildSaveButton(List<AnswerItem> answers) {
-    return RaisedButton(child: Text("Save"), onPressed: () => saveAnswers(answers),);
+  Widget buildSaveButton(int attempts, List<AnswerItem> answers) {
+    return RaisedButton(
+      child: Text("Save"),
+      onPressed: () => saveAnswers(attempts, answers),
+    );
   }
 
-  saveAnswers(List<AnswerItem> answers) async {
+  saveAnswers(int attempts, List<AnswerItem> answers) async {
     List<int> result = List<int>();
     for (AnswerItem x in answers) {
       if (x.isChecked) {
         result.add(x.id);
       }
     }
-    final response = await tasksBloc.sendAnswers(task.id, result, dateBloc.getCurrentDate());
+    final response =
+        await tasksBloc.sendAnswers(task.id, result, dateBloc.getCurrentDate());
     if (response.success) {
       Toast.show("Correct!", context);
-      Future.delayed(Duration(milliseconds: 300)).then((value) => Navigator.pop(context));
+      Future.delayed(Duration(milliseconds: 300))
+          .then((value) => Navigator.pop(context));
     } else {
-      Toast.show("Wrong. x atempts remain", context, duration: Toast.LENGTH_LONG);
+      String message = "Wrong. ";
+      if (attempts == 0) {
+        message += "Try again.";
+      } else if (attempts < response.taskInfo.attempts) {
+        message +=
+            "${attempts - response.taskInfo.attempts} attempts remain";
+      } else {
+        message += "No attempts left";
+        Future.delayed(Duration(milliseconds: 300))
+            .then((value) => Navigator.pop(context));
+      }
+      Toast.show(message, context,
+          duration: Toast.LENGTH_LONG);
     }
   }
 }

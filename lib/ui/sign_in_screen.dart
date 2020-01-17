@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:quest_world/blocs/quests_bloc.dart';
 import 'package:quest_world/blocs/user_bloc.dart';
 import 'package:quest_world/models/user_model.dart';
 import 'package:quest_world/ui/base_widgets/scaffold_wrapper.dart';
 import 'package:quest_world/ui/main_screen.dart';
+import 'package:quest_world/ui/quests_tab.dart';
 import 'package:quest_world/ui/register_screen.dart';
 import 'package:toast/toast.dart';
 
@@ -90,8 +92,17 @@ class _SignInScreenState extends State<SignInScreen> {
                     ],
                   ),
                   MaterialButton(
-                    child: Text("Create new account"),
-                    onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegisterScreen())),
+                    child: Text(
+                      "Create new account",
+                      style: Theme.of(context)
+                          .textTheme
+                          .body1
+                          .copyWith(color: Colors.black54),
+                    ),
+                    onPressed: () => Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RegisterScreen())),
                   )
                 ],
               ),
@@ -106,11 +117,28 @@ class _SignInScreenState extends State<SignInScreen> {
     formKey.currentState.save();
     try {
       final success = await userBloc.login(user.name, user.password);
+      final startStatus = await userBloc.checkToken();
+      final hasActiveQuests = startStatus.hasActiveQuests;
       if (success) {
+        if (hasActiveQuests) {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => ScaffoldWrapper(child: MainScreen(),)));
+                builder: (context) => ScaffoldWrapper(
+                      child: MainScreen(),
+                    )));
+        } else {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ScaffoldWrapper(
+                    child: QuestsTab(
+                      loadQuests: questsBlock.fetchAvailableQuests,
+                      getQuestsStream: questsBlock.availableQuests,
+                      title: "Available Quests",
+                    ),
+                  )));
+        }
       }
     } catch (e) {
       Toast.show(e.toString(), context, duration: Toast.LENGTH_LONG);

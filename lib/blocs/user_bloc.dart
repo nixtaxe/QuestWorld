@@ -1,19 +1,26 @@
+import 'package:quest_world/blocs/quests_bloc.dart';
+import 'package:quest_world/models/quest_model.dart';
+import 'package:quest_world/models/start_state_model.dart';
 import 'package:quest_world/models/token_model.dart';
 import 'package:quest_world/models/user_model.dart';
-import 'package:quest_world/resources/fake_responses.dart';
+import 'package:quest_world/resources/url_strings.dart';
 import 'package:quest_world/resources/user/user_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
 class UserBloc {
   final _repository = UserRepository();
 
-  final _tokenFetcher = PublishSubject<bool>();
+  final _tokenFetcher = PublishSubject<StartState>();
 
-  Observable<bool> hasToken() => _tokenFetcher.stream;
+  Observable<StartState> hasToken() => _tokenFetcher.stream;
 
-  checkToken() async {
+  Future<StartState> checkToken() async {
     final hasToken = await _repository.hasToken();
-    _tokenFetcher.sink.add(hasToken);
+    final QuestsResponse quests = await questsBlock.fetchActiveQuests();
+    final hasActiveQuests = !quests.questList.isEmpty;
+    final result = StartState(hasToken: hasToken, hasActiveQuests: hasActiveQuests);
+    _tokenFetcher.sink.add(result);
+    return result;
   }
 
   Future<bool> login(String username, String password) async {

@@ -31,8 +31,17 @@ class _TaskDescriptionScreenState extends State<TaskDescriptionScreen> {
     return ScaffoldWrapper(
       child: Column(
         children: <Widget>[
+          SizedBox(
+            height: 15.0,
+          ),
           Text(task.name),
+          SizedBox(
+            height: 5.0,
+          ),
           Text(task.descriptionText),
+          SizedBox(
+            height: 5.0,
+          ),
           taskBody,
         ],
       ),
