@@ -43,12 +43,11 @@ class _ScaffoldWrapperState extends State<ScaffoldWrapper> {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Center(
-                child: Text(
-              "Quest world",
-              style: Theme.of(context).textTheme.headline,
-            )),
             decoration: BoxDecoration(
+              image: DecorationImage(
+                image: ExactAssetImage('assets/images/header.jpg'),
+                fit: BoxFit.fill
+              ),
               color: Theme.of(context).primaryColor,
             ),
           ),
