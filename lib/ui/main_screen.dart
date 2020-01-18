@@ -47,11 +47,11 @@ class _MainScreenState extends State<MainScreen>
         ),
       ),
       bottomNavigationBar: Material(
-          color: Theme.of(context).primaryColor,
+          color: Colors.transparent,
           child: TabBar(
-            indicatorColor: Colors.white,
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.white,
+            indicatorColor: Theme.of(context).primaryColorDark,
+            labelColor: Colors.black54,
+            unselectedLabelColor: Colors.black54,
             controller: controller,
             tabs: <Tab>[
               Tab(text: "Active"),

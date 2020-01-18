@@ -1,5 +1,6 @@
 import 'package:quest_world/models/question_model.dart';
 import 'package:quest_world/models/task_model.dart';
+import 'package:quest_world/resources/fake_responses.dart';
 import 'package:quest_world/resources/tasks/tasks_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -13,12 +14,12 @@ class TasksBlock {
   Observable<QuestionResponse> question() => _questionFetcher.stream;
 
   getCurrentTasks(int questId, {String active, String started}) async {
-    final result = await _repository.getCurrentTasks(questId, active: active, started: started);
+    final result = await getCurrentTaskList(questId);//_repository.getCurrentTasks(questId, active: active, started: started);//
     _currentTasksFetcher.sink.add(result);
   }
 
   getQuestionById(int id) async {
-    final result = await _repository.getQuestionById(id);
+    final result = await getQuestion(id);//_repository.getQuestionById(id);//
     _questionFetcher.sink.add(result);
   }
 

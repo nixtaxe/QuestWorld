@@ -29,11 +29,11 @@ Future<UserRequest> getUser() async {
 
 Future<QuestionResponse> getQuestion(int id) async {
   var jsonString;
-  if (id == 2) {
+  if (id == 1) {
     jsonString = await rootBundle.loadString("assets/fake_json/questions.json");
   }
-//  if (id == 1) {
-//    jsonString = await rootBundle.loadString("assets/fake_json/choice.json");
-//  }
+  if (id == 2) {
+    jsonString = await rootBundle.loadString("assets/fake_json/choice.json");
+  }
   return QuestionResponse.fromJson(json.decode(jsonString));
 }

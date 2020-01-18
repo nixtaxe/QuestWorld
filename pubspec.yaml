@@ -28,6 +28,8 @@ dependencies:
   dio_http_cache: ^0.2.5
   intl: ^0.16.1
   toast: ^0.1.5
+  permission_handler:
+  barcode_scan:
 
 dev_dependencies:
   flutter_test:

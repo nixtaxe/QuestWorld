@@ -10,8 +10,11 @@ import 'package:quest_world/ui/sign_in_screen.dart';
 import 'blocs/quests_bloc.dart';
 
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark
-      .copyWith(statusBarIconBrightness: Brightness.light));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+      statusBarIconBrightness: Brightness.light,
+      statusBarColor: Color(0xFF2DA4D8),
+      systemNavigationBarColor: Color(0xFF2DA4D8),
+      systemNavigationBarIconBrightness: Brightness.light));
 
   runApp(App());
 }
@@ -48,7 +51,7 @@ class _AppState extends State<App> {
             button: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w700,
-                color: Colors.white.withOpacity(0.85))),
+                color: Colors.white.withOpacity(0.9))),
       ),
       home: Scaffold(
         body: StreamBuilder(
