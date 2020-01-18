@@ -1,17 +1,24 @@
 {
-  "success": true,
-  "quests": [
+  "QuestList": [
     {
       "id": 1,
-      "Name": "TestQuest1",
-      "Description": "Test Description1"
+      "Name": "Кампус-квест в честь дня Первокурсника",
+      "DescriptionText": "В этом квесте вам предстоит посетить несколько станций и ответить на загадки, связанные с ДВФУ",
+      "StartDate": "2020-01-01T00:00:00",
+      "FinishDate": "2020-01-10T00:00:00",
+      "Status": "Active",
+      "QuestStartDate": null,
+      "QuestFinishDate": null
     },
     {
       "id": 2,
-      "Name": "TestQuest2",
-      "Description": "Test Description2"
+      "Name": "Квест на День рождения Маши",
+      "DescriptionText": "Отгадайте загадки и ответьте на вопросы о Маше, чтобы получить приз!",
+      "StartDate": "2020-01-01T00:00:00",
+      "FinishDate": "2020-01-10T00:00:00",
+      "Status": "Active",
+      "QuestStartDate": null,
+      "QuestFinishDate": null
     }
   ]
 }
-
-

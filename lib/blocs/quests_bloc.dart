@@ -19,23 +19,23 @@ class QuestsBlock {
   Observable<QuestsResponse> availableQuests() => _availableQuestsFetcher.stream;
 
   Future<QuestsResponse> fetchActiveQuests() async {
-    QuestsResponse quests = await _repository.getQuestsByStatus(QuestsStrings.active);
+    QuestsResponse quests = await getActiveQuests();//_repository.getQuestsByStatus(QuestsStrings.active);//
     _activeQuestsFetcher.sink.add(quests);
     return quests;
   }
 
   fetchFinishedQuests() async {
-    QuestsResponse quests = await _repository.getQuestsByStatus(QuestsStrings.finished);
+    QuestsResponse quests = await getActiveQuests();//_repository.getQuestsByStatus(QuestsStrings.finished);
     _finishedQuestsFetcher.sink.add(quests);
   }
 
   fetchAbandonedQuests() async {
-    QuestsResponse quests = await _repository.getQuestsByStatus(QuestsStrings.abandoned);
+    QuestsResponse quests = await getActiveQuests();//_repository.getQuestsByStatus(QuestsStrings.abandoned);
     _abandonedQuestsFetcher.sink.add(quests);
   }
 
   fetchAvailableQuests() async {
-    QuestsResponse quests = await _repository.getAvailableQuests();
+    QuestsResponse quests = await getActiveQuests();//_repository.getAvailableQuests();
     _availableQuestsFetcher.sink.add(quests);
   }
 

@@ -22,7 +22,9 @@ dependencies:
 
   rxdart: ^0.22.6
   dio: ^3.0.8
-  flutter_secure_storage: ^3.3.1+1
+  flutter_secure_storage:
+    git:
+      url: https://github.com/mogol/flutter_secure_storage
   dio_http_cache: ^0.2.5
   intl: ^0.16.1
   toast: ^0.1.5
@@ -39,6 +41,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/fake_json/
+    - assets/images/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

@@ -36,7 +36,7 @@ class _QuestTabState extends State<QuestsTab> {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text(
             widget.title,
-            style: Theme.of(context).textTheme.title,
+            style: Theme.of(context).textTheme.title.copyWith(color: Colors.black54),
           ),
         ),
         StreamBuilder(
@@ -54,9 +54,11 @@ class _QuestTabState extends State<QuestsTab> {
               if (snapshot.hasData) {
                 quests = snapshot.data.questList;
                 if (quests.length == 0) {
-                  return Container(
-                    child: Center(
-                      child: Text("No quests found"),
+                  return Expanded(
+                    child: Container(
+                      child: Center(
+                        child: Text("No quests found"),
+                      ),
                     ),
                   );
                 }
@@ -95,12 +97,22 @@ class _QuestTabState extends State<QuestsTab> {
 
   Widget buildQuestItemView(context, int id) {
     QuestItem quest = quests[id];
-    return Card(
-      child: ListTile(
-        leading: Icon(Icons.all_out),
-        title: Text(quest.name),
-        subtitle: Text(quest.descriptionText),
-        onTap: () => openQuestView(quest),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+      child: Card(
+        elevation: 4.0,
+        color: Color(0xFFe8f4f8),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 10.0),
+          child: ListTile(
+            leading: CircleAvatar(
+              radius: 30.0,
+              backgroundImage: ExactAssetImage('assets/images/image${id + 1}.jpg'),
+            ),
+            title: Text(quest.name, style: TextStyle(color: Theme.of(context).accentColor),),
+            onTap: () => openQuestView(quest),
+          ),
+        ),
       ),
     );
   }
